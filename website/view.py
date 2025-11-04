@@ -15,12 +15,14 @@ def home():
 @view.route("/delete",methods=["POST"])
 def delete_user():
     
-    if request.method=="POST":
         id=request.form.get("id")
-        user=Users.query.filter_by(id=id).first()
 
-        db.session.delete(user)
-        db.session.commit()
+        if id:
+            user=Users.query.filter_by(id=id).first()
+            if user:
+                db.session.delete(user)
+                db.session.commit()
+
         return redirect(url_for("view.home"))
 
 
